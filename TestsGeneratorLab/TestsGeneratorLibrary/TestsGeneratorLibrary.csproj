@@ -78,10 +78,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeStructures\ClassData.cs" />
+    <Compile Include="CodeStructures\CodeData.cs" />
+    <Compile Include="CodeStructures\ConstructorData.cs" />
+    <Compile Include="CodeStructures\MethodData.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="ITestsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestsGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
