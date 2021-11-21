@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestsGeneratorLibrary.CodeData
+namespace TestsGeneratorLibrary.CodeStructures
 {
-    class CodeData
+    public struct CodeData
     {
+        public List<ClassData> classesData { get;}
+
+        public CodeData(List<ClassData> classesData)
+        {
+            this.classesData = classesData;
+        }
     }
 }
