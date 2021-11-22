@@ -23,13 +23,20 @@ namespace TestsGeneratorLibrary
             foreach (var classData in data.classesData)
             {
                 var classTest = generateClass(classData);
-                var unit = SyntaxFactory.CompilationUnit()
+                var code = SyntaxFactory.CompilationUnit()
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System")))
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("NUnit.Framework")))
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("Moq")))
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Collections.Generic")))
                     .AddMembers(classTest);
-                codeDictionary[classData.name + "Test"] = unit.NormalizeWhitespace().ToFullString();
+
+
+                var syntax = code.NormalizeWhitespace();
+
+                var testCode = syntax.ToFullString();
+                
+              
+                codeDictionary[classData.name + "Test"] = testCode;
             }
 
             return codeDictionary;
@@ -142,7 +149,7 @@ namespace TestsGeneratorLibrary
 
             body.Add(createFailExpression());
 
-            return SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName("void"), methodData.name)
+            return SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName("void"), methodData.name + "Test")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddAttributeLists(SyntaxFactory.AttributeList(SyntaxFactory.AttributeList().Attributes.Add(SyntaxFactory.Attribute(SyntaxFactory.ParseName("Test")))))
                 .WithBody(SyntaxFactory.Block(body)); ;
@@ -244,6 +251,9 @@ namespace TestsGeneratorLibrary
         private Dictionary<string, string> getInterfaces(Dictionary<string, string> parameters)
         {
             var result = new Dictionary<string, string>();
+
+            if (parameters == null) { return result; }
+
             foreach (var parameter in parameters)
             {
                 if (parameter.Value[0] == 'I')
@@ -258,6 +268,9 @@ namespace TestsGeneratorLibrary
         private Dictionary<string, string> getBaseType(Dictionary<string, string> parameters)
         {
             var res = new Dictionary<string, string>();
+
+            if (parameters == null) { return res; } 
+
             foreach (var parameter in parameters)
             {
                 if (parameter.Value[0] != 'I')
@@ -272,6 +285,9 @@ namespace TestsGeneratorLibrary
         private string convertParametersToStr(Dictionary<string, string> parameters)
         {
             var str = "";
+
+            if (parameters == null) { return str; }
+
             foreach (var param in parameters)
             {
                 str += param.Value[0] == 'I' ? $"_{param.Key}.Object" : $"{param.Key}";

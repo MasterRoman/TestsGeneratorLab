@@ -9,13 +9,13 @@ using System.Threading.Tasks.Dataflow;
 
 namespace TestsGeneratorLibrary.ReadWrite
 {
-    class ReadWriteManager : IReadWrite
+    public class ReadWriteManager : IReadWrite
     {
 
         private IParser parser;
         private ITestsGenerator testsGenerator;
 
-        ReadWriteManager(IParser parser, ITestsGenerator testsGenerator)
+        public ReadWriteManager(IParser parser, ITestsGenerator testsGenerator)
         {
             this.parser = parser;
             this.testsGenerator = testsGenerator;
