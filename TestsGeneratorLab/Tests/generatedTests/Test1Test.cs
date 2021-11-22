@@ -3,7 +3,6 @@ using NUnit.Framework;
 using Moq;
 using System.Collections.Generic;
 
-[TestFixture]
 
 class Test1
 {
@@ -15,6 +14,7 @@ class Test1
     }
 }
 
+[TestFixture]
 class Test1Test
 {
     private Mock<IList<int>> _list;
